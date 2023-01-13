@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "761259348562",
+    "project_id": "rsdevmodif",
+    "storage_bucket": "rsdevmodif.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761259348562:android:6770b558fd8384e6d2058b",
+        "android_client_info": {
+          "package_name": "com.example.rsdev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761259348562-peqemefq041glqgojcl6l7s5cdq3278a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEeHa6fdr4tdY6MqFEkgWz4gXXIjUYUcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761259348562-peqemefq041glqgojcl6l7s5cdq3278a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

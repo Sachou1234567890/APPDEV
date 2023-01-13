@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">RSDEV_modif2</string>
+    <string name="title_activity_result_launcher">ActivityResultLauncher</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="google_client_id_on_tap_sign_ing">922656101530-r7nf5gsa727fpmj721bnc7jslmvi9hm7.apps.googleusercontent.com</string>
+    <string name="send_button_text">send</string>
+    <string name="message_input_hint">message</string>
+
+
+</resources>
