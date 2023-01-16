@@ -7,4 +7,5 @@ data class UserModel(
     val dob: String = "",
     val email: String = "",
     val user_id: String = "",
+    val friends: List<String>? = null
 )

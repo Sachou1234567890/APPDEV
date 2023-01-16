@@ -83,9 +83,9 @@ class CreatePostActivity : AppCompatActivity() {
 
         binding.createNewPostBtn.setOnClickListener {
 
-            if (checkValidation()) {
+//            if (checkValidation()) {
                 saveToFirebase()
-            }
+//            }
 
         }
 
@@ -97,6 +97,7 @@ class CreatePostActivity : AppCompatActivity() {
     }
 
     private fun saveToFirebase() {
+
         val EventModel = PostModel(
             postId = UUID.randomUUID().toString(),
             postCreatedDate = Calendar.getInstance().timeInMillis.toString(),
