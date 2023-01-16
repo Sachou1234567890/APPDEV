@@ -120,7 +120,7 @@ object Utils {
     ) {
         showProgress()
         val storage = FirebaseStorage.getInstance()
-        val storageRef = storage.getReferenceFromUrl("gs://rsdev-47072.appspot.com/")
+        val storageRef = storage.getReferenceFromUrl("gs://rsdevmodif.appspot.com/")
         val mountainImagesRef =
             storageRef.child(folder + "/" + FirebaseAuth.getInstance().currentUser?.uid + "_" + Calendar.getInstance().timeInMillis + ".jpg")
         val baos = ByteArrayOutputStream()

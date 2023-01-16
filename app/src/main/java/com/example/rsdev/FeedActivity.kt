@@ -1,215 +1,258 @@
 package com.example.rsdev
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.widget.*
+import android.telecom.Call.Details
+import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.appcompat.widget.Toolbar
+import com.example.rsdev.data.CommentModel
+import com.example.rsdev.data.LikeModel
+import com.example.rsdev.data.PostModel
+import com.example.rsdev.data.UserModel
+import com.example.rsdev.databinding.ActivityFeedBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import android.view.ViewGroup.LayoutParams
-import android.view.ViewGroup.MarginLayoutParams
-import android.view.Gravity
-import kotlin.random.Random
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import java.util.*
 
-class FeedActivity : AppCompatActivity() {
+
+class FeedActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
+
+    private lateinit var binding: ActivityFeedBinding
+
+    private lateinit var allFeedRecyclerviewAdapter: AllFeedRecyclerviewAdapter
+
+    protected lateinit var auth: FirebaseAuth
+
+    protected lateinit var mFirestore: FirebaseFirestore
+
+    private var allPostsList: ArrayList<PostModel> = ArrayList()
+
+    private var currentUserModel: UserModel = UserModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.actionBar?.hide()
-        setContentView(R.layout.activity_feed)
 
-// certains élements graphiques sur cette activity
-        val mainLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
-        val bt_logout = findViewById<Button>(R.id.bt_logout)
-        val bt_form_addFriend = findViewById<ImageButton>(R.id.bt_form_addFriend)
-        val img_profile = findViewById<ImageView>(R.id.img_profile)
+        binding = ActivityFeedBinding.inflate(layoutInflater)
 
-// connexion à la bdd firestore
-        val db = Firebase.firestore
-// accès à la collection <users>
-        val users = db.collection("users")
+        setContentView(binding.root)
 
-// l'utilisateur connecté et son email (FirebaseAuth)
-        val user_connected = FirebaseAuth.getInstance().currentUser // l'utilisateur connecté
-        val email_connected = user_connected?.email // son email
+        auth = FirebaseAuth.getInstance()
 
-// créer le formulaire d'ajout d'un ami
-        bt_form_addFriend.setOnClickListener {
+        mFirestore = FirebaseFirestore.getInstance()
 
-            // créer un <LinearLayout> (myLinearLayout) dans lequel on va mettre deux <EditText> (nom et prénom de l'ami à ajouter)
-            val myLinearLayout = LinearLayout(this)
-            myLinearLayout.id = LinearLayout.generateViewId()
-            myLinearLayout.gravity = Gravity.CENTER // centrer les deux <EditText>
-            // créer un <EditText> (prenomEditText) pour saisir le prénom de l'ami que l'on veut ajouter
-            val prenomEditText = EditText(this)
-            prenomEditText.id = EditText.generateViewId()
-                // les propriétés de prenomEditText
-                prenomEditText.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                prenomEditText.setHint("Prénom de l'ami")
-            // créer un autre <EditText> (nomEditText) pour saisir le nom de l'ami que l'on veut ajouter
-            val nomEditText = EditText(this)
-            nomEditText.id = EditText.generateViewId()
-                // les propriétés de nomEditText
-                nomEditText.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                nomEditText.setHint("Nom de l'ami")
-            // mettre les 2 <EditText> crées dans myLinearLayout
-            myLinearLayout.addView(prenomEditText)
-            myLinearLayout.addView(nomEditText)
-            // mettre myLinearLayout dans l'élément parent (id=mainLayout)
-            mainLayout.addView(myLinearLayout)
-            // établir des contraintes pour myLinearLayout (bien le placer dans l'élément parent (id=mainLayout) )
-            val set1 = ConstraintSet()
-            set1.clone(mainLayout)
-            // centrer myLinearLayout horizontalement dans l'élément parent
-            set1.connect(
-                myLinearLayout.id,
-                ConstraintSet.START,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.START
-            )
-            set1.connect(
-                myLinearLayout.id,
-                ConstraintSet.END,
-                myLinearLayout.id,
-                ConstraintSet.START
-            )
-            set1.setHorizontalChainStyle(myLinearLayout.id, ConstraintSet.CHAIN_SPREAD)
-            set1.connect(
-                myLinearLayout.id,
-                ConstraintSet.END,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.END
-            )
-            set1.connect(
-                myLinearLayout.id, ConstraintSet.TOP,
-                ConstraintSet.PARENT_ID, ConstraintSet.TOP, 980
-            )
-            //appliquer les contraintes
-            set1.applyTo(mainLayout)
-            // créer un <Button> (bt_addFriend_confirm) pour valider l'ajout
-            val bt_addFriend_confirm = Button(this)
-            bt_addFriend_confirm.id = Button.generateViewId()
-            // les propriétés de <Button>
-            bt_addFriend_confirm.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            bt_addFriend_confirm.setText("VALIDER")
-            // Ajouter bt_addFriend_confirm à l'élément parent (id=mainLayout)
-            mainLayout.addView(bt_addFriend_confirm)
-            //établir des contraintes pour bt_addFriend_confirm (bien le placer dans l'élément parent (id=mainLayout) )
-            val set2 = ConstraintSet()
-            set2.clone(mainLayout)
-            // centrer bt_addFriend_confirm horizontalement dans l'élément parent
-            set2.connect(
-                bt_addFriend_confirm.id,
-                ConstraintSet.START,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.START
-            )
-            set2.connect(
-                bt_addFriend_confirm.id,
-                ConstraintSet.END,
-                bt_addFriend_confirm.id,
-                ConstraintSet.START
-            )
-            set2.setHorizontalChainStyle(bt_addFriend_confirm.id, ConstraintSet.CHAIN_SPREAD)
-            set2.connect(
-                bt_addFriend_confirm.id,
-                ConstraintSet.END,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.END
-            )
-            set2.connect(
-                bt_addFriend_confirm.id, ConstraintSet.TOP,
-                ConstraintSet.PARENT_ID, ConstraintSet.TOP, 1200
-            )
-            //appliquer les contraintes
-            set2.applyTo(mainLayout)
+        binding.toolbar.setSubtitle("Home");
+        binding.toolbar.inflateMenu(R.menu.main_menu)
+        binding.toolbar.setOnMenuItemClickListener(this);
 
-            // valider l'ajout d'un nouvel ami
-            bt_addFriend_confirm.setOnClickListener {
-                val user_conn = users.whereEqualTo("email", email_connected) // l'utilisateur connecté
-                user_conn.get().addOnSuccessListener { users2 ->
-                    for (user in users2) {
-                        // On récupere les contenus des 2 <EditText> créés
-                        val firstname = prenomEditText.text.toString().trim()
-                        val lastname = nomEditText.text.toString().trim()
-                        // vérifier si l'ami recherché existe
-                        val friend = users.whereEqualTo("firstname", firstname).whereEqualTo("lastname", lastname)
-                        friend.get().addOnCompleteListener { friend ->
-                                if (friend.result.isEmpty() || friend.result == null) {
-                                    Toast.makeText(this@FeedActivity,"cet utilisateur n'existe pas!",Toast.LENGTH_LONG).show()
-                                }
-                                else {
-                                    val id_r = friend.result.documents[0].id // le _r signifie "receiver" (destinataire)
-                                    val firsname_r = friend.result.documents[0].get("firstname").toString()
-                                    val lastname_r = friend.result.documents[0].get("lastname").toString()
-                                    val id_s = user.id // le _s signifie "sender" (expediteur)
-                                    val firsname_s = user.get("firstname").toString()
-                                    val lastname_s = user.get("lastname").toString()
 
-                                    if((firsname_r == user.get("firstname") && lastname_r == user.get("lastname"))) {
-                                        Toast.makeText(this@FeedActivity,"interdit d'envoyer une demande à nous meme!",Toast.LENGTH_LONG).show()
-                                    }
-                                    else {
-                                        Functions.addFriendRequest(id_s,id_r)
-                                        Toast.makeText(this@FeedActivity,"demande d'ami envoyée",Toast.LENGTH_LONG).show()
-                                    }
-                                }
-                        }
-                        break
-                    }
-                }
-            }
-            // FIN valider l'ajout d'un nouvel ami
+        binding.createNewPost.setOnClickListener {
+            val LoginActivity = Intent(this, CreatePostActivity::class.java)
+            startActivity(LoginActivity)
         }
-// FIN créer formulaire d'ajout d'un ami
 
-
-// aller vers ProfileActivity
-        img_profile.setOnClickListener {
+        binding.profile.setOnClickListener {
             val ProfileActivity = Intent(this, ProfileActivity::class.java)
             startActivity(ProfileActivity)
         }
-// FIN aller vers ProfileActivity
 
-// se déconnecter
-        bt_logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val LoginActivity = Intent(this, LoginActivity::class.java)
-            startActivity(LoginActivity)
+        binding.addFriend.setOnClickListener {
+            val AddFriendActivity = Intent(this, AddFriendActivity::class.java)
+            startActivity(AddFriendActivity)
         }
-// FIN se déconnecter
+
+         binding.swiperefresh.setOnRefreshListener {
+            getAllPosts()
+            binding.swiperefresh.isRefreshing = false
+        }
+
+        allFeedRecyclerviewAdapter = AllFeedRecyclerviewAdapter(this,
+            auth.currentUser?.uid.toString(),
+            object : OnPositionItemTypeClick {
+                override fun onItemClick(
+                    model: Any,
+                    position: Int,
+                    type: String,
+                    image: Bitmap?
+                ) {
+                    if (type.equals("Like", ignoreCase = true)) {
+                        handleLikeEvent(model as PostModel)
+                    } else if (type.equals("Comment", ignoreCase = true)) {
+                         handleCommentEvent(model as PostModel)
+                    } else if (type.equals("Detail", ignoreCase = true)) {
+                        PostDetailActivity.selectedPost = model as PostModel
+                        val activity = Intent(this@FeedActivity, PostDetailActivity::class.java)
+                        startActivity(activity)
+                    }
+                }
+            })
+
+        binding.homeRecyclerView.adapter = allFeedRecyclerviewAdapter
+
+        getUserProfile()
+
+        getAllPosts()
+    }
+
+    private fun showLoading(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun hideLoading(){
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun handleCommentEvent(postModel: PostModel) {
+
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = this.getLayoutInflater()
+        val dialogView = inflater.inflate(R.layout.custom_comment_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        val cancel = dialogView.findViewById<ImageView>(R.id.cancel)
+        val comment = dialogView.findViewById<EditText>(R.id.comment)
+        val shareCommentBtn = dialogView.findViewById<Button>(R.id.shareCommentBtn)
+
+        val alertDialog = dialogBuilder.create()
+
+
+        shareCommentBtn.setOnClickListener {
+            val message = comment.text.trim().toString()
+            if (message.isNullOrEmpty()) {
+                showToastShort("No Comment Written")
+            } else {
+                val commentList = postModel.postComment
+                commentList.add(
+                    CommentModel(
+                        userId = currentUserModel.user_id!!,
+                        username = currentUserModel.username!!,
+                        postId = postModel.postId,
+                        message = message,
+                        datetime = Calendar.getInstance().timeInMillis.toString()
+                    )
+                )
+                val mEventModel = postModel.copy(postComment = commentList)
+                updatePost(mEventModel) {
+                    alertDialog.dismiss()
+                    showToastShort("Your Comment Shared")
+                    getAllPosts()
+                }
+            }
+        }
+
+        cancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
+    private fun handleLikeEvent(postModel: PostModel) {
+
+        val userId = auth.currentUser?.uid!!
+
+        var likeList = postModel.postLikedBy
+
+        var foundedUser = likeList.findLast { it.userId == userId }
+
+        if (foundedUser != null) {
+            // remove
+            likeList.remove(foundedUser)
+        } else {
+            likeList.add(
+                LikeModel(
+                    userId = userId,
+                    username = currentUserModel.username,
+                    postId = postModel.postId,
+                    datetime = Calendar.getInstance().timeInMillis.toString()
+                )
+            )
+        }
+
+        val mEventModel = postModel.copy(postLikedBy = likeList)
+
+        updatePost(mEventModel) {
+            getAllPosts()
+        }
+    }
+
+    private fun getAllPosts() {
+
+        showLoading()
+
+        mFirestore.collection("AllPosts").get()
+            .addOnSuccessListener {
+                val list: ArrayList<PostModel> = ArrayList()
+                for (document in it) {
+                    document.toObject<PostModel>().let { it1 -> list.add(it1) }
+                }
+
+                allPostsList = ArrayList()
+                allPostsList.addAll(list)
+
+                allFeedRecyclerviewAdapter.setData(allPostsList)
+
+                hideLoading()
+
+            }.addOnFailureListener {
+
+            }
+    }
+
+    fun getUserProfile() {
+        auth.currentUser?.uid?.let { userId ->
+            mFirestore.collection("users").document(userId).get().addOnSuccessListener {
+                currentUserModel = it.toObject<UserModel>()!!
+            }.addOnFailureListener {
+            }.addOnCanceledListener {
+            }
+        }
+    }
+
+    fun updatePost(
+        postModel: PostModel, callback: (String) -> Unit
+    ) {
+        showLoading()
+        mFirestore.collection("AllPosts").document(postModel.postId).update(postModel.toMap())
+            .addOnSuccessListener {
+                callback("Post Updated")
+                hideLoading()
+            }.addOnFailureListener {
+                callback("Post Update Failed")
+            }.addOnCanceledListener {
+                callback("Post Update Cancelled")
+            }
 
     }
 
+    fun showToastShort(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
+    fun showToastLong(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.logout -> {
+                FirebaseAuth.getInstance().signOut();
+                val LoginActivity = Intent(this, LoginActivity::class.java)
+                LoginActivity.putExtra("keyIdentifier", "value")
+                startActivity(LoginActivity)
+                this.finish()
+                showToastShort("Logout")
+                true
+            }
+            else -> true
+        }
+    }
 
 }
-
