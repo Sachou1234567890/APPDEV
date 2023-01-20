@@ -49,6 +49,10 @@ class Functions {
             friend_receiver.update("friends", FieldValue.arrayUnion(id_friend_sender))
         }
 
+//        fun addMessage(id_friend_sender: String, id_friend_receiver: String) {
+//            ...............
+//        }
+
 
     }
 
