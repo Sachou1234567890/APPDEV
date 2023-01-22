@@ -33,6 +33,7 @@ class MyMessage : Activity() {
             .orderBy("timestamp", Query.Direction.ASCENDING)
 
 
+
         query.get().addOnSuccessListener { snapshot ->
             for (document in snapshot) {
                 val sender = document.get("to_user_id") as String
@@ -62,7 +63,7 @@ class MyMessage : Activity() {
                         "DocumentSnapshot written with ID: ${documentReference.id}"
                     )
                 }
-
+            
         }
     }
 }
