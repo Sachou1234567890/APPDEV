@@ -4,26 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessagesSendedActivity"
-    android:id="@+id/mainLayout_messages_s">
+    android:id="@+id/mainLayout_messages_s"
+    tools:context=".MessagesSendedActivity">
 
-    <ImageView
-        android:id="@+id/cancel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="right"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_outline_cancel_24" />
-
-    <TextView
-        android:id="@+id/title_messages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mes messages envoyés"
-        android:textColor="@color/black"
-        android:textSize="25dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
+        <TextView
+            android:id="@+id/title_messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="Mes messages envoyés"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias="0.5"
+            />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

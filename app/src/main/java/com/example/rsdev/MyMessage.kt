@@ -77,10 +77,9 @@ class MyMessage : Activity() {
 
                             db.collection("messages").add(messagedate)
                                 .addOnSuccessListener { documentReference ->
-                                    Log.d(
-                                        ContentValues.TAG,
-                                        "DocumentSnapshot written with ID: ${documentReference.id}"
-                                    )
+                                    Toast.makeText(this@MyMessage, "message envoyé avec succés", Toast.LENGTH_SHORT).show()
+                                    val MessagesSendedActivity = Intent(this, MessagesSendedActivity::class.java)
+                                    startActivity(MessagesSendedActivity)
                                 }
                 }
             }

@@ -21,7 +21,6 @@ class ProfileActivity : AppCompatActivity() {
         val friends = findViewById<TextView>(R.id.friends)
         val sended_messages = findViewById<TextView>(R.id.sended_messages)
         val received_messages = findViewById<TextView>(R.id.received_messages)
-        val test = findViewById<TextView>(R.id.test)
 
         // connexion à la bdd firestore
         val db = Firebase.firestore
@@ -69,13 +68,6 @@ class ProfileActivity : AppCompatActivity() {
         received_messages.setOnClickListener {
             val MessagesReceivedActivity = Intent(this, MessagesReceivedActivity::class.java)
             startActivity(MessagesReceivedActivity)
-        }
-
-
-        // vers la page test
-        test.setOnClickListener {
-            val TestMessageActivity = Intent(this, TestMessageActivity::class.java)
-            startActivity(TestMessageActivity)
         }
 
 
