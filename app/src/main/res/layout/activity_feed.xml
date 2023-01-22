@@ -73,7 +73,6 @@
                 tools:itemCount="10"
                 tools:listitem="@layout/item_post" />
 
-
         </RelativeLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -116,26 +115,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        android:layout_marginRight="115dp"
+        android:layout_marginRight="165dp"
         android:backgroundTint="@color/secondaryColor"
         android:clickable="true"
         android:src="@drawable/add_friend"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createMessages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginRight="220dp"
-        android:backgroundTint="@color/secondaryColor"
-        android:clickable="true"
-        android:src="@drawable/create_messages"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
