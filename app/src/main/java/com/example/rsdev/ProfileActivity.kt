@@ -1,11 +1,10 @@
 package com.example.rsdev
 
+//import TestMessageActivity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -20,6 +19,9 @@ class ProfileActivity : AppCompatActivity() {
         val sended_requests = findViewById<TextView>(R.id.sended_requests)
         val nom_prenom_profil = findViewById<TextView>(R.id.nom_prenom_profil)
         val friends = findViewById<TextView>(R.id.friends)
+        val sended_messages = findViewById<TextView>(R.id.sended_messages)
+        val received_messages = findViewById<TextView>(R.id.received_messages)
+
         // connexion à la bdd firestore
         val db = Firebase.firestore
         // accès à la collection "users"
@@ -46,7 +48,7 @@ class ProfileActivity : AppCompatActivity() {
 
         // vers la page des demandes d'ami envoyées
         sended_requests.setOnClickListener {
-            val requestsSendedActivity = Intent(this, RequestsSendedActivity::class.java)
+            val requestsSendedActivity = Intent(this, RequestsSentActivity::class.java)
             startActivity(requestsSendedActivity)
         }
 
@@ -54,6 +56,18 @@ class ProfileActivity : AppCompatActivity() {
         received_requests.setOnClickListener {
             val requestsReceivedActivity = Intent(this, RequestsReceivedActivity::class.java)
             startActivity(requestsReceivedActivity)
+        }
+
+        // vers la page des messages envoyés
+        sended_messages.setOnClickListener {
+            val MessagesSentActivity = Intent(this, MessagesSentActivity::class.java)
+            startActivity(MessagesSentActivity)
+        }
+
+        // vers la page des messages reçus
+        received_messages.setOnClickListener {
+            val MessagesReceivedActivity = Intent(this, MessagesReceivedActivity::class.java)
+            startActivity(MessagesReceivedActivity)
         }
 
 
