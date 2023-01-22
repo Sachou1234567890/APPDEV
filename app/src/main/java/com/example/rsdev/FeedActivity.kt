@@ -69,11 +69,6 @@ class FeedActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
             startActivity(AddFriendActivity)
         }
 
-        binding.createMessages.setOnClickListener {
-            val MyMessage = Intent(this, MyMessage::class.java)
-            startActivity(MyMessage)
-        }
-
          binding.swiperefresh.setOnRefreshListener {
             getAllPosts()
             binding.swiperefresh.isRefreshing = false

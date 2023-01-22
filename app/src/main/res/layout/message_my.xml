@@ -1,203 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout3"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:orientation="vertical"
-    android:theme="@style/Theme.MaterialComponents.Light">
-
-    <ImageView
-        android:id="@+id/cancel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="right"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_outline_cancel_24" />
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:text="écrivez votre message"
-            android:textColor="@color/black"
-            android:textSize="14dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_6sdp"
-                android:text="Destinataire"
-                android:textColor="@color/grayDarkColor"
-                android:textSize="@dimen/_12ssp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:inputType="text"
-                android:textColorHint="@color/grayColor"
-                app:boxBackgroundColor="@android:color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:boxStrokeErrorColor="@color/purpleLightColor"
-
-                app:boxStrokeWidth="2dp"
-                app:errorEnabled="true"
-                app:errorIconDrawable="@null"
-                app:errorTextColor="@color/primaryColor"
-
-                app:hintEnabled="false"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-                app:hintTextColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/firstname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="15"
-                    android:hint="prénom du destinataire"
-                    android:inputType="textMultiLine"
-                    android:maxLength="255"
-                    android:maxLines="3"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:inputType="text"
-                android:textColorHint="@color/grayColor"
-                app:boxBackgroundColor="@android:color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:boxStrokeErrorColor="@color/purpleLightColor"
-
-                app:boxStrokeWidth="2dp"
-                app:errorEnabled="true"
-                app:errorIconDrawable="@null"
-                app:errorTextColor="@color/primaryColor"
-
-                app:hintEnabled="false"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-                app:hintTextColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/lastname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="15"
-                    android:hint="nom du destinataire"
-                    android:inputType="textMultiLine"
-                    android:maxLength="255"
-                    android:maxLines="3"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-        </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:inputType="text"
-            android:textColorHint="@color/grayColor"
-            app:boxBackgroundColor="@android:color/white"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:boxCornerRadiusBottomStart="8dp"
-            app:boxCornerRadiusTopEnd="8dp"
-            app:boxCornerRadiusTopStart="8dp"
-            app:boxStrokeErrorColor="@color/purpleLightColor"
-
-            app:boxStrokeWidth="2dp"
-            app:errorEnabled="true"
-            app:errorIconDrawable="@null"
-            app:errorTextColor="@color/primaryColor"
-
-            app:hintEnabled="false"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:hintTextColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="15"
-                android:gravity="start"
-                android:hint="ecrivez votre message"
-                android:inputType="textMultiLine"
-                android:maxLines="50"
-                android:minLines="4"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="12dp" />
-        </com.google.android.material.textfield.TextInputLayout>
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/message_input"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="80dp"
+        android:layout_weight="1"
+        android:hint="@string/message_input_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="DuplicateIds,MissingConstraints"
+        tools:layout_editor_absoluteX="-8dp" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/send_button"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/secondaryColor"
-        android:clickable="true"
-        android:elevation="10dp"
-        android:hint="Camera"
-        android:text="envoyer"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:theme="@style/Theme.MaterialComponents.Light"
-        app:cornerRadius="8dp"
+        android:layout_width="109dp"
+        android:layout_height="55dp"
+        android:text="@string/send_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_gallery"
-        app:layout_constraintTop_toBottomOf="@+id/txt_dialog_content" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.878"
+        tools:ignore="DuplicateIds,MissingConstraints" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
