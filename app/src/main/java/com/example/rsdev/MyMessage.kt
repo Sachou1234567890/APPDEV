@@ -1,25 +1,17 @@
 package com.example.rsdev
 
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.FirebaseApp
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
 
 class MyMessage : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +70,8 @@ class MyMessage : Activity() {
                             db.collection("messages").add(messagedate)
                                 .addOnSuccessListener { documentReference ->
                                     Toast.makeText(this@MyMessage, "message envoyé avec succés", Toast.LENGTH_SHORT).show()
-                                    val MessagesSendedActivity = Intent(this, MessagesSendedActivity::class.java)
-                                    startActivity(MessagesSendedActivity)
+                                    val MessagesSentActivity = Intent(this, MessagesSentActivity::class.java)
+                                    startActivity(MessagesSentActivity)
                                 }
                 }
             }

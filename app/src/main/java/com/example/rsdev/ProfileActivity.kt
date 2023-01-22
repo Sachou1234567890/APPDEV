@@ -48,7 +48,7 @@ class ProfileActivity : AppCompatActivity() {
 
         // vers la page des demandes d'ami envoyées
         sended_requests.setOnClickListener {
-            val requestsSendedActivity = Intent(this, RequestsSendedActivity::class.java)
+            val requestsSendedActivity = Intent(this, RequestsSentActivity::class.java)
             startActivity(requestsSendedActivity)
         }
 
@@ -60,8 +60,8 @@ class ProfileActivity : AppCompatActivity() {
 
         // vers la page des messages envoyés
         sended_messages.setOnClickListener {
-            val MessagesSendedActivity = Intent(this, MessagesSendedActivity::class.java)
-            startActivity(MessagesSendedActivity)
+            val MessagesSentActivity = Intent(this, MessagesSentActivity::class.java)
+            startActivity(MessagesSentActivity)
         }
 
         // vers la page des messages reçus

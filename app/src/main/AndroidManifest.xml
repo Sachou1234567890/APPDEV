@@ -27,7 +27,7 @@
             android:name=".MessagesReceivedActivity"
             android:exported="false" />
         <activity
-            android:name=".RequestsSendedActivity"
+            android:name=".RequestsSentActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -41,7 +41,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MessagesSendedActivity"
+            android:name=".MessagesSentActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
