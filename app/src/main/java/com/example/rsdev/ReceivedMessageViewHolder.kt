@@ -15,7 +15,7 @@ class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         fun bind(message: ReceivedMessage) {
         messageTextView.text = message.messageText
         dateTextView.text = "envoyé le ".plus(message.dateMessage)
-        senderTextView.text = "par ".plus(message.receiverFirstName).plus(" ").plus(message.receiverLastName)
+        senderTextView.text = "par ".plus(message.senderFirstName).plus(" ").plus(message.senderLastName)
     }
 
 
