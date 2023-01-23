@@ -2,6 +2,7 @@ package com.example.rsdev
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -26,6 +27,8 @@ class EditProfileActivity : AppCompatActivity() {
         val selected_dob = findViewById<TextInputEditText>(R.id.selected_dob)
         val firstname = findViewById<TextInputEditText>(R.id.firstname)
         val lastname = findViewById<TextInputEditText>(R.id.lastname)
+        val reset = findViewById<Button>(R.id.reset)
+        val validate = findViewById<Button>(R.id.validate)
 
         // connexion à la bdd firestore
         val db = Firebase.firestore
@@ -50,8 +53,11 @@ class EditProfileActivity : AppCompatActivity() {
                 val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 val dob = currentUser.get("dob") as String
                 selected_dob.setText("date de naissance : ".plus(dob))
-                firstname.setText(currentUser.get("firstname").toString())
-                lastname.setText(currentUser.get("lastname").toString())
+                val saved_firstname = currentUser.get("firstname").toString()
+                val saved_lastname = currentUser.get("lastname").toString()
+                val saved_dob = dob
+                firstname.setText(saved_firstname)
+                lastname.setText(saved_lastname)
 
                 selected_dob.setOnClickListener {
 
@@ -65,7 +71,6 @@ class EditProfileActivity : AppCompatActivity() {
 //                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                         val selectedDate = picker.selection
                         val formattedDate = dateFormat.format(Date(selectedDate ?: 0))
-                        Toast.makeText(this@EditProfileActivity,formattedDate , Toast.LENGTH_SHORT).show()
 
 //                btnDatePicker.visibility = View.GONE
 //                btnDatePicker.text = formattedDate
@@ -74,6 +79,14 @@ class EditProfileActivity : AppCompatActivity() {
                         selected_dob.setText("date sélectionnée : ".plus(formattedDate))
                     }
                 }
+
+                reset.setOnClickListener {
+                    firstname.setText(saved_firstname)
+                    lastname.setText(saved_lastname)
+                    selected_dob.setText("date de naissance : ".plus(saved_dob))
+                }
+
+
 
             }
 
