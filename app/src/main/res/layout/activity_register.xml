@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.087" />
 
     <DatePicker
-        android:id="@+id/brith_date"
+        android:id="@+id/birth_date"
         android:layout_width="319dp"
         android:layout_height="71dp"
         android:layout_centerHorizontal="true"

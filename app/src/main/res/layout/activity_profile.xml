@@ -7,6 +7,7 @@
     tools:context=".ProfileActivity">
 
     <ImageView
+        android:id="@+id/profile"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -14,7 +15,8 @@
         app:layout_constraintVertical_bias=".15"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:src="@drawable/profil_homme">
+        android:src="@drawable/profil_homme"
+        >
     </ImageView>
 
     <TextView
@@ -43,18 +45,17 @@
             android:src="@drawable/message4"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
+
         <TextView
             android:id="@+id/friends"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="26dp"
             android:text="Amis"
-            android:onClick="openFriendsActivity">
-        </TextView>
+            android:textSize="26dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +68,6 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp">
         <ImageView
-            android:onClick="sended_requests"
             android:src="@drawable/message4"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:textSize="26dp"
             android:text="Invitations reçues"
-            android:onClick="received_requests">
+            >
         </TextView>
     </LinearLayout>
 
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:textSize="26dp"
             android:text="Messages envoyés"
-            android:onClick="received_requests">
+            >
         </TextView>
     </LinearLayout>
 
@@ -161,7 +161,7 @@
             android:layout_height="wrap_content"
             android:textSize="26dp"
             android:text="Messages reçus"
-            android:onClick="received_requests">
+            >
         </TextView>
 
     </LinearLayout>

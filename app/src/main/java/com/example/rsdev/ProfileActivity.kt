@@ -3,6 +3,7 @@ package com.example.rsdev
 //import TestMessageActivity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +22,7 @@ class ProfileActivity : AppCompatActivity() {
         val friends = findViewById<TextView>(R.id.friends)
         val sended_messages = findViewById<TextView>(R.id.sended_messages)
         val received_messages = findViewById<TextView>(R.id.received_messages)
+        val profile = findViewById<ImageView>(R.id.profile)
 
         // connexion à la bdd firestore
         val db = Firebase.firestore
@@ -68,6 +70,12 @@ class ProfileActivity : AppCompatActivity() {
         received_messages.setOnClickListener {
             val MessagesReceivedActivity = Intent(this, MessagesReceivedActivity::class.java)
             startActivity(MessagesReceivedActivity)
+        }
+
+        // vers la page de modification du profil
+        profile.setOnClickListener {
+            val EditProfileActivity = Intent(this, EditProfileActivity::class.java)
+            startActivity(EditProfileActivity)
         }
 
 
