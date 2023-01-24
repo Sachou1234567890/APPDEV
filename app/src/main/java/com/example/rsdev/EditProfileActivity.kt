@@ -12,6 +12,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import androidx.appcompat.widget.LinearLayoutCompat
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,6 +28,8 @@ class EditProfileActivity : AppCompatActivity() {
         val selected_dob = findViewById<TextInputEditText>(R.id.selected_dob)
         val firstname = findViewById<TextInputEditText>(R.id.firstname)
         val lastname = findViewById<TextInputEditText>(R.id.lastname)
+        val username = findViewById<TextInputEditText>(R.id.username)
+        val e_mail = findViewById<TextInputEditText>(R.id.e_mail)
         val reset = findViewById<Button>(R.id.reset)
         val validate = findViewById<Button>(R.id.validate)
 
@@ -38,7 +41,7 @@ class EditProfileActivity : AppCompatActivity() {
         val userRef = db.collection("users").document(id_user_connected)
         userRef.get().addOnSuccessListener { currentUser ->
 
-            // s'il n'y a pas de date de naissance
+            // s'il n'y a pas de date de naissance dans le document Firestore
             if(currentUser.get("dob") == null || currentUser.get("dob").toString().isEmpty() ) {
                 selected_dob.setText("aucune date de naissance renseignée")
                 userRef
@@ -49,15 +52,20 @@ class EditProfileActivity : AppCompatActivity() {
             }
 
             else {
-
                 val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 val dob = currentUser.get("dob") as String
-                selected_dob.setText("date de naissance : ".plus(dob))
-                val saved_firstname = currentUser.get("firstname").toString()
-                val saved_lastname = currentUser.get("lastname").toString()
-                val saved_dob = dob
+
+                val saved_firstname = if (currentUser.get("firstname").toString() != null) currentUser.get("firstname").toString() else ""
+                val saved_lastname = if (currentUser.get("lastname").toString() != null) currentUser.get("lastname").toString() else ""
+                val saved_dob = if (currentUser.get("dob").toString() != null) currentUser.get("dob").toString() else ""
+                val saved_username = if (currentUser.get("username").toString() != null) currentUser.get("username").toString() else ""
+                val saved_email = if (currentUser.get("email").toString() != null) currentUser.get("email").toString() else ""
+
                 firstname.setText(saved_firstname)
                 lastname.setText(saved_lastname)
+                username.setText(saved_username)
+                e_mail.setText(saved_email)
+                selected_dob.setText(dob)
 
                 selected_dob.setOnClickListener {
 
@@ -68,50 +76,40 @@ class EditProfileActivity : AppCompatActivity() {
                     picker.show(supportFragmentManager, "date_picker_tag")
 
                     picker.addOnPositiveButtonClickListener {
-//                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                         val selectedDate = picker.selection
                         val formattedDate = dateFormat.format(Date(selectedDate ?: 0))
-
-//                btnDatePicker.visibility = View.GONE
-//                btnDatePicker.text = formattedDate
-//                btnDatePicker.setOnClickListener(null)
-//                selected_date.visibility = View.VISIBLE
-                        selected_dob.setText("date sélectionnée : ".plus(formattedDate))
+                        selected_dob.setText(formattedDate)
                     }
                 }
 
                 reset.setOnClickListener {
+
                     firstname.setText(saved_firstname)
                     lastname.setText(saved_lastname)
-                    selected_dob.setText("date de naissance : ".plus(saved_dob))
+                    username.setText(saved_username)
+                    e_mail.setText(saved_email)
+                    selected_dob.setText(saved_dob)
                 }
 
+                validate.setOnClickListener {
 
+                    userRef.update(mapOf(
+                    "dob" to selected_dob.text.toString().trim(),
+                    "email" to e_mail.text.toString().trim(),
+                    "firstname" to firstname.text.toString().trim(),
+                    "lastname" to lastname.text.toString().trim(),
+                    "username" to username.text.toString().trim()
 
+                    )) .addOnSuccessListener {
+                        Toast.makeText(this@EditProfileActivity, "données modifiées avec succés", Toast.LENGTH_SHORT).show()
+                        val EditProfileActivity = Intent(this, EditProfileActivity::class.java)
+                        startActivity(EditProfileActivity)
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this@EditProfileActivity, "Erreur lors de la modification des données !", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
-
         }
-
-
-
-
-
-
-
-
-//        val btnDatePicker = findViewById<Button>(R.id.show_date_picker)
-//        btnDatePicker.setOnClickListener {
-//
-//            val builder = MaterialDatePicker.Builder.dateRangePicker()
-//            val now = System.currentTimeMillis()
-//            builder.setSelection(Pair(now, now))
-//            val picker = builder.build()
-//            picker.show(supportFragmentManager, "date_picker_tag")
-//        }
-
-
-
-
-
     }
 }

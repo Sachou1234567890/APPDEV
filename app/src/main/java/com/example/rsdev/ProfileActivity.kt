@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -35,8 +36,8 @@ class ProfileActivity : AppCompatActivity() {
         val user_conn = users.whereEqualTo("email", email_connected)
         user_conn.get().addOnSuccessListener { oneUser ->
             for (user in oneUser) {
-                val prenom = user.get("firstname").toString()
-                val nom = user.get("lastname").toString()
+                val prenom = user.get("firstname").toString().trim()
+                val nom = user.get("lastname").toString().trim()
                 nom_prenom_profil.text = prenom.plus(" ").plus(nom)
             }
         }
