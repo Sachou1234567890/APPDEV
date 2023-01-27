@@ -18,7 +18,6 @@ class FriendsAdapter(private var friends: List<Friend>) : RecyclerView.Adapter<F
         holder.bind(friend)
         holder.itemView.setTag(friend.friend_id)
 //        holder.bind(friends[position])
-
     }
 
     override fun getItemCount(): Int {

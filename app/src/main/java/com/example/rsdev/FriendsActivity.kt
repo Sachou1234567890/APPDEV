@@ -34,9 +34,6 @@ class FriendsActivity : AppCompatActivity() {
         val recyclerView_friends = findViewById<RecyclerView>(R.id.recyclerView_friends)
         val swipe_refresh_layout = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout)
 
-        val delete_friend_bt = findViewById<Button>(R.id.delete_friend_bt)
-
-
         // connexion à la bdd firestore
         val db = Firebase.firestore
         // accaccès à la collection "users"
