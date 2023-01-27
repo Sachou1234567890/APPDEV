@@ -26,10 +26,10 @@ class Functions {
         // ajoute une demande d'ami à la collection "friendRequest"
         fun addFriendRequest(id_user_s: String, id_user_r: String) {
             val db = Firebase.firestore
-            val user_sender = db.collection("users")
-                .document(id_user_s) // utilisateur connecté (celui qui envoie la demande d'ami)
-            val user_receiver =
-                db.collection("users").document(id_user_r) // utilisateur recevant la demande d'ami
+//            val user_sender = db.collection("users")
+//                .document(id_user_s) // utilisateur connecté (celui qui envoie la demande d'ami)
+//            val user_receiver =
+//                db.collection("users").document(id_user_r) // utilisateur recevant la demande d'ami
             val friend_request = hashMapOf(
                 "id_sender" to id_user_s, // id du document de l'ami auquel on a envoyé la demande d'ami
                 "id_receiver" to id_user_r, // id du document de l'ami auquel on a envoyé la demande d'ami ,
@@ -48,6 +48,7 @@ class Functions {
             friend_sender.update("friends", FieldValue.arrayUnion(id_friend_receiver))
             friend_receiver.update("friends", FieldValue.arrayUnion(id_friend_sender))
         }
+
 
 //        fun addMessage(id_friend_sender: String, id_friend_receiver: String) {
 //            ...............
