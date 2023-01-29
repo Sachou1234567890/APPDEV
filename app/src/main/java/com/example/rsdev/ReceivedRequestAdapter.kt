@@ -4,9 +4,8 @@ package com.example.rsdev
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rsdev.data.Friend
 import com.example.rsdev.data.ReceivedRequest
-
+import com.example.rsdev.data.Friend
 import com.example.rsdev.ReceivedRequestViewHolder
 
 class ReceivedRequestAdapter(private var requests: List<ReceivedRequest>) : RecyclerView.Adapter<ReceivedRequestViewHolder>() {
@@ -17,16 +16,10 @@ class ReceivedRequestAdapter(private var requests: List<ReceivedRequest>) : Recy
     }
 
     override fun onBindViewHolder(holder: ReceivedRequestViewHolder, position: Int) {
+
         val requestReceived = requests[position]
         holder.bind(requestReceived)
-
-
-//        val arrayNameLastname = arrayOf(requestReceived.senderFirstName.toString(), requestReceived.senderLastName.toString()) as Array<String>
-//        val arrayNameLastname = [requestReceived.senderFirstName.toString(), requestReceived.senderLastName.toString()]
         holder.itemView.setTag(requestReceived.senderId)
-
-//        holder.itemView.setTag(requestReceived.senderFirstName)
-//        holder.bind(requests[position])
     }
 
     override fun getItemCount(): Int {

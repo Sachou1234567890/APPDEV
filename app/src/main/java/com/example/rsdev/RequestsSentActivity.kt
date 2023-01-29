@@ -41,6 +41,7 @@ class RequestsSentActivity : AppCompatActivity() {
                     val receiverLastName = receiver.getString("lastname")
                     val SentRequest = SentRequest(
 
+                        receiverId,
                         receiverFirstName.toString(),
                         receiverLastName.toString()
                     )

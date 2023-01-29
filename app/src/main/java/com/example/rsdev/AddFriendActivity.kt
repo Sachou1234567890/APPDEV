@@ -57,8 +57,8 @@ class AddFriendActivity : AppCompatActivity() {
                             else {
                                 Functions.addFriendRequest(id_s,id_r)
                                 Toast.makeText(this@AddFriendActivity,"demande d'ami envoyée",Toast.LENGTH_LONG).show()
-                                val FeedActivity = Intent(this, FeedActivity::class.java)
-                                startActivity(FeedActivity)
+                                val RequestsSentActivity = Intent(this, RequestsSentActivity::class.java)
+                                startActivity(RequestsSentActivity)
                             }
                         }
                     }

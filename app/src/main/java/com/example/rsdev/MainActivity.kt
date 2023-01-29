@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(FirebaseAuth.getInstance().currentUser == null) {
+        if (FirebaseAuth.getInstance().currentUser == null) {
             val LoginActivity = Intent(this, LoginActivity::class.java)
             LoginActivity.putExtra("keyIdentifier", "value")
             startActivity(LoginActivity)
@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
 //            val LoginActivity = Intent(this, LoginActivity::class.java)
 //            LoginActivity.putExtra("keyIdentifier", "value")
 //            startActivity(LoginActivity)
+
+//            val TestActivity = Intent(this, TestActivity::class.java)
+//            TestActivity.putExtra("keyIdentifier", "value")
+//            startActivity(TestActivity)
         }
     }
 }

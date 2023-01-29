@@ -1,5 +1,4 @@
 package com.example.rsdev
-import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -40,14 +39,6 @@ class FriendsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 .addOnSuccessListener {
                     // Notify the adapter that the data has changed
                     (itemView.parent as RecyclerView).adapter?.notifyDataSetChanged()
-
-//                    val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_requests)
-//                    val adapter = MyAdapter(myData)
-//                    recyclerView.adapter = adapter
-
-//                    val FriendsActivity = Intent(this, FriendsActivity::class.java)
-//                    startActivity(FriendsActivity)
-//                    (recyclerView.adapter as FriendsAdapter).notifyDataSetChanged()
                 }
         }
 
