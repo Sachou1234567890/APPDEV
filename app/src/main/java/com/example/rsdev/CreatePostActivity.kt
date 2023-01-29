@@ -30,6 +30,10 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+
 class CreatePostActivity : AppCompatActivity() {
 
     val AUTHORITY: String = "com.example.rsdev.CreatePostActivity"
@@ -61,6 +65,14 @@ class CreatePostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // inflate the footer fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val footerFragment = FooterFragment()
+        fragmentTransaction.add(R.id.footer_container, footerFragment)
+        fragmentTransaction.commit()
+
         binding = ActivityCreatePostBinding.inflate(layoutInflater)
 
         auth = FirebaseAuth.getInstance()
