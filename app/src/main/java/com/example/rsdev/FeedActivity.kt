@@ -18,6 +18,9 @@ import com.example.rsdev.data.LikeModel
 import com.example.rsdev.data.PostModel
 import com.example.rsdev.data.UserModel
 import com.example.rsdev.databinding.ActivityFeedBinding
+import com.example.rsdev.databinding.MessageMyBinding
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -45,34 +48,35 @@ class FeedActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance()
+        // inflate the header fragment
+        binding = ActivityFeedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.toolbar.setSubtitle("Envoyer un Message");
+        binding.toolbar.setSubtitleTextAppearance(this, R.style.ToolbarSubtitleAppearance)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleAppearance)
 
-        mFirestore = FirebaseFirestore.getInstance()
-
+        binding.toolbar.setNavigationOnClickListener {
+                        onBackPressed()
+        }
         binding.toolbar.setSubtitle("Home");
         binding.toolbar.inflateMenu(R.menu.main_menu)
         binding.toolbar.setOnMenuItemClickListener(this);
 
+        // inflate the footer fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val footerFragment = FooterFragment()
+        fragmentTransaction.add(R.id.footer_container, footerFragment)
+        fragmentTransaction.commit()
 
-        binding.createNewPost.setOnClickListener {
-            val LoginActivity = Intent(this, CreatePostActivity::class.java)
-            startActivity(LoginActivity)
-        }
+        // éléments graphiques sur la vue
+        val firstname = findViewById<TextInputEditText>(R.id.firstname)
+        val lastname = findViewById<TextInputEditText>(R.id.lastname)
+        val message = findViewById<TextInputEditText>(R.id.message)
+        val send_message = findViewById<MaterialButton>(R.id.send_message)
 
-        binding.profile.setOnClickListener {
-            val ProfileActivity = Intent(this, ProfileActivity::class.java)
-            startActivity(ProfileActivity)
-        }
-
-        binding.addFriend.setOnClickListener {
-            val AddFriendActivity = Intent(this, AddFriendActivity::class.java)
-            startActivity(AddFriendActivity)
-        }
-
-         binding.swiperefresh.setOnRefreshListener {
-            getAllPosts()
-            binding.swiperefresh.isRefreshing = false
-        }
+        auth = FirebaseAuth.getInstance()
+        mFirestore = FirebaseFirestore.getInstance()
 
         allFeedRecyclerviewAdapter = AllFeedRecyclerviewAdapter(this,
             auth.currentUser?.uid.toString(),

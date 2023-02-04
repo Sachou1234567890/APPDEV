@@ -4,114 +4,331 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".EditProfileActivity">
 
-    <ImageView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias=".15"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:src="@drawable/profil_homme">
-    </ImageView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:scrollbars="none">
 
-    <TextView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias=".32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="26dp"
-        android:text="Thomas DUBOIS"
-        android:id="@+id/nom_prenom_profil">
-    </TextView>
-
-    <LinearLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias=".50"
-        app:layout_constraintHorizontal_bias=".042"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp">
-        <ImageView
-            android:src="@drawable/message4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-        <TextView
-            android:id="@+id/friends"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="26dp"
-            android:text="Amis"
-            android:onClick="openFriendsActivity">
-        </TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias=".58"
-        app:layout_constraintHorizontal_bias=".1"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp">
-        <ImageView
-            android:onClick="sended_requests"
-            android:src="@drawable/message4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-        <TextView
-            android:id="@+id/sended_requests"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="26dp"
-            android:text="Invitations envoyées">
-        </TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias=".66"
-        app:layout_constraintHorizontal_bias=".09"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp">
-        <ImageView
-            android:src="@drawable/message4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-        <TextView
-            android:id="@+id/received_requests"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="26dp"
-            android:text="Invitations reçues"
-            android:onClick="received_requests">
-        </TextView>
-    </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue_background"
+                    app:navigationIcon="?attr/homeAsUpIndicator"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="@style/Toolbar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_20sdp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_2sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        app:cardCornerRadius="@dimen/_20sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteX="23dp">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_20sdp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:id="@+id/edit_data"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:text="editer vos données"
+                                        android:textColor="@color/neon_orange"
+                                        android:textSize="@dimen/_12ssp"
+                                        android:textStyle="bold"
+                                        android:paddingTop="10dp"
+                                        android:paddingBottom="10dp"
+                                        android:gravity="start"
+                                        android:clickable="true"
+                                        android:foreground="?android:attr/selectableItemBackground"
+                                        android:layout_marginBottom="5dp"
+                                        android:layout_weight="1"
+                                        />
+
+                                    <TextView
+                                        android:id="@+id/edit_profile_photo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="end"
+                                        android:text="Changer la Photo"
+                                        android:textColor="@color/neon_orange"
+                                        android:textSize="@dimen/_12ssp"
+                                        android:textStyle="bold"
+                                        android:paddingTop="10dp"
+                                        android:paddingBottom="10dp"
+                                        android:gravity="end"
+                                        android:clickable="true"
+                                        android:foreground="?android:attr/selectableItemBackground"
+                                        android:layout_marginBottom="5dp"
+                                        android:layout_weight="1"
+                                        />
+                                </LinearLayout>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/imageCard"
+                                    android:layout_width="@dimen/_140sdp"
+                                    android:layout_height="@dimen/_140sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_margin="@dimen/_2sdp"
+                                    android:clickable="true"
+                                    android:elevation="@dimen/_20sdp"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    app:cardCornerRadius="@dimen/_20sdp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/profile"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/profil_homme"></ImageView>
+                                    <TextView
+                                        android:id="@+id/text"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:padding="16dp"
+                                        android:text=""/>
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_12sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/nom_prenom_profil"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ems="15"
+                                        android:maxLength="100"
+                                        android:text="Nom Prenom"
+                                        android:textColor="@color/black"
+                                        android:textSize="20sp"
+                                        android:gravity="center"
+                                        android:textStyle="bold"
+                                        />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                >
+
+                                    <ImageView
+                                        android:src="@drawable/friends"
+                                        android:layout_width="55dp"
+                                        android:layout_height="100dp"
+                                        android:ems="15"
+                                        android:layout_marginTop="15dp"
+                                        android:gravity="center_vertical"
+                                         />
+
+                                    <TextView
+                                        android:id="@+id/friends"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:ems="15"
+                                        android:text=" Amis"
+                                        android:textColor="@color/black"
+                                        android:textSize="20sp"
+                                        android:gravity="center_vertical"
+                                        />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:src="@drawable/message_sent"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:ems="15"
+                                    android:gravity="start"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/sended_messages"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:ems="15"
+                                    android:text="  Messages envoyés"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="3dp"
+                                    />
+
+                            </LinearLayout>
 
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
 
+                                <ImageView
+                                    android:src="@drawable/message_received"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:ems="15"
+                                    android:gravity="start"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/received_messages"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:ems="15"
+                                    android:text="  Messages reçus"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="3dp"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:src="@drawable/request_sent"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:ems="15"
+                                    android:gravity="start"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/sended_requests"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ems="15"
+                                    android:text="  Invitations envoyées"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:src="@drawable/request_received"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:ems="15"
+                                    android:gravity="start"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/received_requests"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ems="15"
+                                    android:text="  Invitations reçues"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp" />
+
+                            </LinearLayout>
+
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:indeterminate="true"
+                    android:indeterminateTintMode="src_atop"
+                    android:layout_centerInParent="true"
+                    android:indeterminateTint="@color/primaryLightColor"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/footer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

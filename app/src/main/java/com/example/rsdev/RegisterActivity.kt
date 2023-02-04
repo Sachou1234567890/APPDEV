@@ -30,16 +30,22 @@ class RegisterActivity : AppCompatActivity() {
 
         // Action au click de connexion
         btn_login.setOnClickListener {
-            val firstname = findViewById<EditText>(R.id.firstname_user).text.toString();
-            val lastname = findViewById<EditText>(R.id.lastname_user).text.toString();
-            val username = findViewById<EditText>(R.id.username_user).text.toString();
-            val birthDate = findViewById<DatePicker>(R.id.brith_date);
-            val email = findViewById<EditText>(R.id.email_user).text.toString();
-            val password = findViewById<EditText>(R.id.password_login).text.toString();
-            val confirmPassword = findViewById<EditText>(R.id.confirm_password).text.toString();
-            val day_brith: Int = birthDate.getDayOfMonth();
-            val month_brith: Int = birthDate.getMonth() + 1;
-            val year_brith: Int = birthDate.getYear();
+            val firstname = findViewById<EditText>(R.id.firstname_user).text.toString().lowercase();
+            val lastname = findViewById<EditText>(R.id.lastname_user).text.toString().lowercase();
+            val username = findViewById<EditText>(R.id.username_user).text.toString().lowercase();
+            val birthDate = findViewById<DatePicker>(R.id.birth_date);
+            val email = findViewById<EditText>(R.id.email_user).text.toString().lowercase();
+            val password = findViewById<EditText>(R.id.password_login).text.toString().lowercase();
+            val confirmPassword = findViewById<EditText>(R.id.confirm_password).text.toString().lowercase();
+            val day_birth: Int = birthDate.getDayOfMonth();
+            val month_birth: Int = birthDate.getMonth() + 1;
+            val year_birth: Int = birthDate.getYear();
+
+            val day_birth_formatted = String.format("%02d", day_birth)
+            val month_birth_formatted = String.format("%02d", month_birth)
+            val dob = "$day_birth_formatted-$month_birth_formatted-$year_birth"
+
+            val profile_img: String = ""
 
             //On vérifie que les champs ne sont pas vides
             if (email.trim()
@@ -55,7 +61,7 @@ class RegisterActivity : AppCompatActivity() {
                                 "lastname" to lastname,
                                 "username" to username,
                                 "email" to email,
-                                "dob" to day_brith.toString() + "-" + month_brith + "-" + year_brith
+                                "dob" to dob
                             )
 
                             db.collection("users").document(auth.currentUser?.uid.toString()).set(users)
