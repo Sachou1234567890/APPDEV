@@ -30,13 +30,13 @@ class RegisterActivity : AppCompatActivity() {
 
         // Action au click de connexion
         btn_login.setOnClickListener {
-            val firstname = findViewById<EditText>(R.id.firstname_user).text.toString();
-            val lastname = findViewById<EditText>(R.id.lastname_user).text.toString();
-            val username = findViewById<EditText>(R.id.username_user).text.toString();
+            val firstname = findViewById<EditText>(R.id.firstname_user).text.toString().lowercase();
+            val lastname = findViewById<EditText>(R.id.lastname_user).text.toString().lowercase();
+            val username = findViewById<EditText>(R.id.username_user).text.toString().lowercase();
             val birthDate = findViewById<DatePicker>(R.id.birth_date);
-            val email = findViewById<EditText>(R.id.email_user).text.toString();
-            val password = findViewById<EditText>(R.id.password_login).text.toString();
-            val confirmPassword = findViewById<EditText>(R.id.confirm_password).text.toString();
+            val email = findViewById<EditText>(R.id.email_user).text.toString().lowercase();
+            val password = findViewById<EditText>(R.id.password_login).text.toString().lowercase();
+            val confirmPassword = findViewById<EditText>(R.id.confirm_password).text.toString().lowercase();
             val day_birth: Int = birthDate.getDayOfMonth();
             val month_birth: Int = birthDate.getMonth() + 1;
             val year_birth: Int = birthDate.getYear();

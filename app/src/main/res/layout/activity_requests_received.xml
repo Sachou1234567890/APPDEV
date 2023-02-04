@@ -6,15 +6,15 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
+        android:layout_height="wrap_content">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            app:title="Mes demandes d'ami reçues"
+            android:background="@color/blue_background"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Toolbar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -55,5 +55,11 @@
             android:gravity="center" />
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <FrameLayout
+        android:id="@+id/footer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

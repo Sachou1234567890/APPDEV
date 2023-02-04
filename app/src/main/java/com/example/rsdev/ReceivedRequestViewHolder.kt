@@ -1,4 +1,5 @@
 package com.example.rsdev
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.Button
@@ -50,6 +51,10 @@ class ReceivedRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
                         .addOnSuccessListener {
                             Functions.addFriend(senderId, id_user_connected)
                             Toast.makeText(itemView.context, "Demande d'ami validée", Toast.LENGTH_LONG).show()
+                            if(itemView.context!=null) {
+                                val intent = Intent(itemView.context, FriendsActivity::class.java)
+                                itemView.context.startActivity(intent)
+                            }
                         }
                         .addOnFailureListener {
                             Toast.makeText(itemView.context, "erreur!", Toast.LENGTH_LONG).show()

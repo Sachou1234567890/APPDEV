@@ -39,12 +39,10 @@ class CreatePostActivity : AppCompatActivity() {
     val AUTHORITY: String = "com.example.rsdev.CreatePostActivity"
 
     private lateinit var binding: ActivityCreatePostBinding
-
     private val pickImageFromGallery_Code = 100
     private val pickImageFromCamera_Code = 101
 
     var photoFile: File? = null
-
     var mImageBitmap: Bitmap? = null
 
     protected lateinit var auth: FirebaseAuth
@@ -73,6 +71,7 @@ class CreatePostActivity : AppCompatActivity() {
         fragmentTransaction.add(R.id.footer_container, footerFragment)
         fragmentTransaction.commit()
 
+
         binding = ActivityCreatePostBinding.inflate(layoutInflater)
 
         auth = FirebaseAuth.getInstance()
@@ -81,7 +80,13 @@ class CreatePostActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.toolbar.setSubtitle("Create a Post");
+        binding.toolbar.setSubtitle("Ajouter un Post");
+        binding.toolbar.setSubtitleTextAppearance(this, R.style.ToolbarSubtitleAppearance)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleAppearance)
+
+        binding.toolbar.setNavigationOnClickListener {
+                        onBackPressed()
+        }
 
         storage = Firebase.storage
 
@@ -89,21 +94,18 @@ class CreatePostActivity : AppCompatActivity() {
             showImageChoiceDialogue()
         }
 
-        binding.toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-
         binding.createNewPostBtn.setOnClickListener {
 
-//            if (checkValidation()) {
+            if (checkValidation()) {
                 saveToFirebase()
-//            }
-
+                finish()
+                val FeedActivity = Intent(this, FeedActivity::class.java)
+                startActivity(FeedActivity)
+            }
         }
 
         // Initialize a new instance of ManagePermissions class
         managePermissions = ManagePermissions(this, permissionsList, PermissionsRequestCode)
-
         managePermissions.checkPermissions()
 
     }

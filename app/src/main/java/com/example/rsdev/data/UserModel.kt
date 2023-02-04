@@ -7,5 +7,19 @@ data class UserModel(
     val dob: String = "",
     val email: String = "",
     val user_id: String = "",
-    val friends: List<String>? = null
-)
+    val friends: List<String>? = null,
+    val userImageUrl: String = ""
+){
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "username" to username,
+            "firstname" to firstname,
+            "lastname" to lastname,
+            "dob" to dob,
+            "email" to email,
+            "user_id" to user_id,
+            "friends" to friends,
+            "userImageUrl" to userImageUrl
+        )
+    }
+}

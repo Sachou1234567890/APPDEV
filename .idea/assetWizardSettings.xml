@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/person/baseline_person_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsround/rectangle/round_rectangle_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="profil_vector" />
-                            <entry key="sourceFile" value="C:\Users\gdigi\AndroidStudioProjects\PROJETS_GITHUB\APPDEV" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="round_rectangle_24" />
+                            <entry key="sourceFile" value="C:\Users\gdigi\Desktop\vector_images\request_received.svg" />
                           </map>
                         </option>
                       </PersistentState>

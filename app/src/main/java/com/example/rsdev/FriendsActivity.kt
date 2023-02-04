@@ -10,6 +10,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.toObjects
 import java.text.SimpleDateFormat
 import android.content.Context
+import android.content.Intent
 //import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsdev.data.ReceivedRequest
+import com.example.rsdev.databinding.ActivityFriendsBinding
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -27,9 +29,30 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.FieldValue
 class FriendsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityFriendsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends)
+
+        // inflate the header fragment
+        binding = ActivityFriendsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.toolbar.setSubtitle("Mes amis");
+        binding.toolbar.setSubtitleTextAppearance(this, R.style.ToolbarSubtitleAppearance)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleAppearance)
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        // inflate the footer fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val footerFragment = FooterFragment()
+        fragmentTransaction.add(R.id.footer_container, footerFragment)
+        fragmentTransaction.commit()
+
 
         val recyclerView_friends = findViewById<RecyclerView>(R.id.recyclerView_friends)
         val swipe_refresh_layout = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout)

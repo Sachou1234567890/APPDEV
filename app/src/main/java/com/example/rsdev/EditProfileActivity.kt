@@ -1,9 +1,16 @@
 package com.example.rsdev
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
+import android.provider.MediaStore
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -13,25 +20,51 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import androidx.appcompat.widget.LinearLayoutCompat
-
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
+import com.example.rsdev.data.UserModel
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.io.File
+import android.widget.ImageView
+import com.example.rsdev.databinding.ActivityEditProfileBinding
+
 
 //import androidx.core.util.Range
 
 class EditProfileActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityEditProfileBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
         // éléments présents dans cette vue
-        val selected_dob = findViewById<TextInputEditText>(R.id.selected_dob)
-        val firstname = findViewById<TextInputEditText>(R.id.firstname)
-        val lastname = findViewById<TextInputEditText>(R.id.lastname)
-        val username = findViewById<TextInputEditText>(R.id.username)
-        val e_mail = findViewById<TextInputEditText>(R.id.e_mail)
+        val selected_dob = findViewById<EditText>(R.id.selected_dob)
+        val firstname = findViewById<EditText>(R.id.firstname)
+        val lastname = findViewById<EditText>(R.id.lastname)
+        val username = findViewById<EditText>(R.id.username)
+        val e_mail = findViewById<EditText>(R.id.e_mail)
         val reset = findViewById<Button>(R.id.reset)
         val validate = findViewById<Button>(R.id.validate)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        // inflate the footer fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val footerFragment = FooterFragment()
+        fragmentTransaction.add(R.id.footer_container, footerFragment)
+        fragmentTransaction.commit()
 
         // connexion à la bdd firestore
         val db = Firebase.firestore
@@ -40,6 +73,8 @@ class EditProfileActivity : AppCompatActivity() {
         // accès à l'utilisateur connecté
         val userRef = db.collection("users").document(id_user_connected)
         userRef.get().addOnSuccessListener { currentUser ->
+
+//            Toast.makeText(this, currentUser.get("firstname").toString(), Toast.LENGTH_SHORT).show()
 
             // s'il n'y a pas de date de naissance dans le document Firestore
             if(currentUser.get("dob") == null || currentUser.get("dob").toString().isEmpty() ) {
@@ -51,7 +86,7 @@ class EditProfileActivity : AppCompatActivity() {
                     .addOnFailureListener { }
             }
 
-            else {
+//            else {
                 val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 val dob = currentUser.get("dob") as String
 
@@ -60,6 +95,8 @@ class EditProfileActivity : AppCompatActivity() {
                 val saved_dob = if (currentUser.get("dob").toString() != null) currentUser.get("dob").toString() else ""
                 val saved_username = if (currentUser.get("username").toString() != null) currentUser.get("username").toString() else ""
                 val saved_email = if (currentUser.get("email").toString() != null) currentUser.get("email").toString() else ""
+
+            Toast.makeText(this, saved_firstname, Toast.LENGTH_SHORT).show()
 
                 firstname.setText(saved_firstname)
                 lastname.setText(saved_lastname)
@@ -109,7 +146,15 @@ class EditProfileActivity : AppCompatActivity() {
                         Toast.makeText(this@EditProfileActivity, "Erreur lors de la modification des données !", Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
+//            }
         }
     }
+
+
+
+
+
+
+
+
 }

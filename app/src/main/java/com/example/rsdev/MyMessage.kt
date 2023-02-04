@@ -1,9 +1,12 @@
 package com.example.rsdev
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.rsdev.databinding.MessageMyBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.FirebaseApp
@@ -12,16 +15,27 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import android.widget.EditText
+
 
 class MyMessage : AppCompatActivity()  {
+
+    private lateinit var binding: MessageMyBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
         setContentView(R.layout.message_my)
+
+        // inflate the header fragment
+        binding = MessageMyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.toolbar.setSubtitle("Envoyer un Message");
+        binding.toolbar.setSubtitleTextAppearance(this, R.style.ToolbarSubtitleAppearance)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleAppearance)
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         // inflate the footer fragment
         val fragmentManager = supportFragmentManager
@@ -31,62 +45,68 @@ class MyMessage : AppCompatActivity()  {
         fragmentTransaction.commit()
 
         // éléments graphiques sur la vue
-        val firstname = findViewById<TextInputEditText>(R.id.firstname)
-        val lastname = findViewById<TextInputEditText>(R.id.lastname)
-        val message = findViewById<TextInputEditText>(R.id.message)
-        val send_button = findViewById<MaterialButton>(R.id.send_button)
+        val firstname = findViewById<EditText>(R.id.firstname)
+        val lastname = findViewById<EditText>(R.id.lastname)
+        val message = findViewById<EditText>(R.id.message)
+        val send_message = findViewById<MaterialButton>(R.id.send_message)
 
-        // val database = FirebaseFirestore.getInstance()
+
+        // differents données Firebase
         val db = Firebase.firestore
-//        val firestore = FirebaseFirestore.getInstance()
         val firestore: FirebaseFirestore by lazy { Firebase.firestore }
-
-        // val messageInput = findViewById<EditText>(R.id.message_input)
         val messagesRef = db.collection("messages")
         // accès à la collection <users>
         val users = db.collection("users")
         // ID de l'utilisateur connecté (FirebaseAuth)
         val id_user_connected = FirebaseAuth.getInstance().currentUser?.uid
-//        val email_connected = user_connected?.email // son email
 
-        // Ajoutez un écouteur de clic sur le bouton "Envoyer"
-        send_button.setOnClickListener {
 
-            val firstname = firstname.text.toString().trim()
-            val lastname = lastname.text.toString().trim() 
-            val message = message.text.toString().trim()
+        send_message.setOnClickListener {
+
+            val firstname_text = firstname.text?.toString()?.lowercase() ?: ""
+            val lastname_text = lastname.text?.toString()?.lowercase() ?: ""
+            val message_text = message.text?.toString()?.lowercase() ?: ""
+
+
 
             // destinataire du message
-            val friend_query = users.whereEqualTo("firstname", firstname).whereEqualTo("lastname", lastname).limit(1)
+            val friend_query = users.whereEqualTo("firstname", firstname_text).whereEqualTo("lastname", lastname_text).limit(1)
 
             friend_query.get().addOnCompleteListener { friend ->
                 if (friend.result.isEmpty() || friend.result == null) {
-                    Toast.makeText(this@MyMessage,"cet utilisateur n'existe pas!",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"cet utilisateur n'existe pas!",Toast.LENGTH_LONG).show()
                 }
                 else {
                     val to_user_id = friend.result.documents[0].id
                     val from_user_id = id_user_connected
 
-
-                    if(from_user_id == to_user_id ) {
-                        Toast.makeText(this@MyMessage,"interdit d'envoyer un message à nous meme!",Toast.LENGTH_LONG).show()
+                    if(from_user_id == to_user_id || (from_user_id == to_user_id && message_text.isEmpty()) ) {
+                        Toast.makeText(this,"interdit d'envoyer un message à nous meme!",Toast.LENGTH_LONG).show()
                     }
-                            val messagedate = hashMapOf(
-                                "from_user_id" to id_user_connected,
-                                "to_user_id" to to_user_id,
-                                "message" to message,
-                                "timestamp" to FieldValue.serverTimestamp()
-                            )
+                    else if(message_text.isEmpty() ) {
+                        Toast.makeText(this,"le message est vide !",Toast.LENGTH_LONG).show()
+                    }
+                    else {
 
-                            db.collection("messages").add(messagedate)
-                                .addOnSuccessListener { documentReference ->
-                                    Toast.makeText(this@MyMessage, "message envoyé avec succés", Toast.LENGTH_SHORT).show()
-                                    val MessagesSentActivity = Intent(this, MessagesSentActivity::class.java)
-                                    startActivity(MessagesSentActivity)
-                                }
+                        val messagedata = hashMapOf(
+                            "from_user_id" to id_user_connected,
+                            "to_user_id" to to_user_id,
+                            "message" to message_text,
+                            "timestamp" to FieldValue.serverTimestamp()
+                        )
+                        messagesRef.add(messagedata)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Message envoyé avec succés!", Toast.LENGTH_SHORT).show()
+                                val MessagesSentActivity = Intent(this, MessagesSentActivity::class.java)
+                                startActivity(MessagesSentActivity)
+                                finish()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Failed to send message!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 }
             }
-
         }
     }
 

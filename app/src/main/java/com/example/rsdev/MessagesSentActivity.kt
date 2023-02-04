@@ -1,5 +1,6 @@
 package com.example.rsdev
 
+import android.content.Intent
 import com.google.firebase.firestore.Query
 import com.example.rsdev.data.SentMessage
 import android.os.Bundle
@@ -14,12 +15,36 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
+import com.example.rsdev.databinding.ActivityMessagesSentBinding
 class MessagesSentActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMessagesSentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages_sent)
 
+        // inflate the header fragment
+        binding = ActivityMessagesSentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.toolbar.setSubtitle("Messages envoyés");
+        binding.toolbar.setSubtitleTextAppearance(this, R.style.ToolbarSubtitleAppearance)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleAppearance)
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        // inflate the footer fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val footerFragment = FooterFragment()
+        fragmentTransaction.add(R.id.footer_container, footerFragment)
+        fragmentTransaction.commit()
+        
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_messages)
+
+
+
 
         // connexion à la bdd firestore
         val db = Firebase.firestore

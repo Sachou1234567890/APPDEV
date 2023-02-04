@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,14 +9,25 @@
     android:orientation="vertical"
     android:theme="@style/Theme.MaterialComponents.Light">
 
-    <ImageView
-        android:id="@+id/cancel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="right"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_outline_cancel_24" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_background"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Toolbar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance"
+            app:titleTextAppearance="@style/ToolbarTitleAppearance"
+            app:subtitle="Editer mes données"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,48 +49,48 @@
                 android:textColor="@color/grayDarkColor"
                 android:textSize="@dimen/_12ssp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:inputType="text"
-                        android:textColorHint="@color/grayColor"
-                        app:boxBackgroundColor="@android:color/white"
-                        app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                        app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                        app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                        app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                        app:boxStrokeErrorColor="@color/purpleLightColor"
-                        app:boxStrokeWidth="2dp"
-                        app:errorEnabled="true"
-                        app:errorIconDrawable="@null"
-                        app:errorTextColor="@color/primaryColor"
-                        app:hintEnabled="true"
-                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-                        app:hintTextColor="@color/black"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:hintAnimationEnabled="false">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="text"
+                android:textColorHint="@color/grayColor"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:boxStrokeErrorColor="@color/purpleLightColor"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@null"
+                app:errorTextColor="@color/primaryColor"
+                app:hintEnabled="true"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:hintAnimationEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/firstname"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="15"
-                            android:hint="Prénom"
+                <EditText
+                    android:id="@+id/firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="15"
+                    android:hint="Prénom"
 
-                            android:inputType="textMultiLine"
-                            android:maxLength="255"
-                            android:maxLines="3"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
+                    android:inputType="textMultiLine"
+                    android:maxLength="255"
+                    android:maxLines="3"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -298,6 +310,12 @@
         android:layout_height="wrap_content"
         android:text="VALIDER"
         android:layout_gravity="center"/>
+
+    <FrameLayout
+        android:id="@+id/footer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 
 </LinearLayout>

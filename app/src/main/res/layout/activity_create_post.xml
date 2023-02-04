@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".AddFriendActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/secondaryColor"
+                    android:background="@color/blue_background"
                     app:navigationIcon="?attr/homeAsUpIndicator"
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/Toolbar"
@@ -164,55 +165,55 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_6sdp"
-                                android:text="Description"
-                                android:textColor="@color/grayDarkColor"
-                                android:textSize="@dimen/_12ssp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/_6sdp"
+                                    android:text="Description"
+                                    android:textColor="@color/grayDarkColor"
+                                    android:textSize="@dimen/_12ssp" />
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/eventTitleLayout"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:inputType="text"
-                                android:textColorHint="@color/grayColor"
-                                app:boxBackgroundColor="@android:color/white"
-                                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                                app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                                app:boxStrokeErrorColor="@color/purpleLightColor"
-
-                                app:boxStrokeWidth="2dp"
-                                app:errorEnabled="true"
-                                app:errorIconDrawable="@null"
-                                app:errorTextColor="@color/primaryColor"
-
-                                app:hintEnabled="false"
-                                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-                                app:hintTextColor="@color/black"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/postDescription"
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/eventTitleLayout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:ems="15"
-                                    android:hint="Description"
-                                    android:inputType="textMultiLine"
-                                    android:minLines="4"
-                                    android:maxLines="50"
-                                    android:gravity="start"
-                                    android:text=""
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-                            </com.google.android.material.textfield.TextInputLayout>
+                                    android:background="@android:color/transparent"
+                                    android:inputType="text"
+                                    android:textColorHint="@color/grayColor"
+                                    app:boxBackgroundColor="@android:color/white"
+                                    app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                                    app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                                    app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                                    app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                                    app:boxStrokeErrorColor="@color/purpleLightColor"
+
+                                    app:boxStrokeWidth="2dp"
+                                    app:errorEnabled="true"
+                                    app:errorIconDrawable="@null"
+                                    app:errorTextColor="@color/primaryColor"
+
+                                    app:hintEnabled="false"
+                                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                                    app:hintTextColor="@color/black"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/postDescription"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ems="15"
+                                        android:hint="Description"
+                                        android:inputType="textMultiLine"
+                                        android:minLines="4"
+                                        android:maxLines="50"
+                                        android:gravity="start"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
 
                             </LinearLayout>
 
@@ -221,7 +222,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:backgroundTint="@color/secondaryColor"
+                                android:backgroundTint="@color/neon_green"
                                 android:gravity="center"
                                 android:layout_marginTop="@dimen/_20sdp"
                                 android:paddingVertical="@dimen/_10sdp"
@@ -264,8 +265,5 @@
         android:id="@+id/footer_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,7 +39,7 @@
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:text="Annuler"
-            android:backgroundTint="#A4D4E6"
+            android:backgroundTint="@color/neon_green"
             android:layout_gravity="center"
             android:layout_weight="1.8"
             android:layout_marginStart="8dp"/>

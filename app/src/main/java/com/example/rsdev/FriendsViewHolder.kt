@@ -1,4 +1,5 @@
 package com.example.rsdev
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -37,8 +38,15 @@ class FriendsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val friend_id = itemView.getTag() as String
             users.document(id_user_connected).update("friends", FieldValue.arrayRemove(friend_id))
                 .addOnSuccessListener {
-                    // Notify the adapter that the data has changed
-                    (itemView.parent as RecyclerView).adapter?.notifyDataSetChanged()
+                    if(itemView.context!=null) {
+                        Toast.makeText(itemView.context, "ami supprimé", Toast.LENGTH_LONG).show()
+                        val friendsActivity = itemView.context as FriendsActivity
+                        val intent = Intent(friendsActivity, FriendsActivity::class.java)
+                        itemView.context.startActivity(intent)
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(itemView.context, "erreur!", Toast.LENGTH_LONG).show()
                 }
         }
 

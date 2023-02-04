@@ -10,6 +10,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.toObjects
 import java.text.SimpleDateFormat
 import android.content.Context
+import android.content.Intent
 //import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,11 +27,34 @@ import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.FieldValue
+import com.example.rsdev.databinding.ActivityRequestsReceivedBinding
+
 
 class RequestsReceivedActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRequestsReceivedBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_requests_received)
+
+        // inflate the header fragment
+        binding = ActivityRequestsReceivedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.toolbar.setSubtitle("Invitations reçues");
+        binding.toolbar.setSubtitleTextAppearance(this, R.style.ToolbarSubtitleAppearance)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleAppearance)
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        // inflate the footer fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val footerFragment = FooterFragment()
+        fragmentTransaction.add(R.id.footer_container, footerFragment)
+        fragmentTransaction.commit()
 
         val recyclerView_requests = findViewById<RecyclerView>(R.id.recyclerView_requests)
         val swipe_refresh_layout = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout)
@@ -68,8 +92,6 @@ class RequestsReceivedActivity : AppCompatActivity() {
                             senderFirstName,
                             senderLastName
                         )
-                        Toast.makeText(this@RequestsReceivedActivity, receivedRequest.senderFirstName.plus(" ").plus(receivedRequest.senderLastName),
-                            Toast.LENGTH_SHORT).show()
 
                         requestsList.add(receivedRequest)
                         // update the recyclerview's adapter with the new list

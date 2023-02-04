@@ -1,5 +1,6 @@
 package com.example.rsdev
 
+import android.content.Intent
 import com.google.firebase.firestore.Query
 import com.example.rsdev.data.ReceivedMessage
 import android.os.Bundle
@@ -14,10 +15,32 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
+import com.example.rsdev.databinding.ActivityMessagesReceivedBinding
+
 class MessagesReceivedActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMessagesReceivedBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages_received)
+
+        // inflate the header fragment
+        binding = ActivityMessagesReceivedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.toolbar.setSubtitle("Messages reçus");
+        binding.toolbar.setSubtitleTextAppearance(this, R.style.ToolbarSubtitleAppearance)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleAppearance)
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        // inflate the footer fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val footerFragment = FooterFragment()
+        fragmentTransaction.add(R.id.footer_container, footerFragment)
+        fragmentTransaction.commit()
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_messages)
 

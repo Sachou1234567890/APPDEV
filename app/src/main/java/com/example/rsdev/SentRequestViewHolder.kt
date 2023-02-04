@@ -18,7 +18,6 @@ class SentRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     val users = db.collection("users")
     var friend_requests = db.collection("friend_requests")
     val id_user_connected = FirebaseAuth.getInstance().currentUser?.uid.toString()
-//    val recyclerView = itemView.findViewById<RecyclerView>(R.id.recyclerView_friends)
 
     val friend_request_image = itemView.findViewById<ImageView>(R.id.friend_request_image)
     val friend_request_name = itemView.findViewById<TextView>(R.id.friend_request_name)
